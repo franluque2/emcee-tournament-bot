@@ -31,7 +31,7 @@ const command: CommandDefinition = {
 			const register = await send(
 				msg.client,
 				channel,
-				`__Registration now open for **${tournament.name}**!__\n${tournament.description}\n__Click the ✅ below to sign up!__`
+				`@everyone\n__Registration now open for **${tournament.name}**!__\n${tournament.description}\n__Click the ✅ below to sign up!__`
 			);
 			await support.database.openRegistration(id, register.channelId, register.id);
 			await register.react("✅");

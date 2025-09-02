@@ -18,7 +18,7 @@ const logger = getLogger("index");
 	const config = getConfig();
 	const database = await initializeDatabase(config.postgresqlUrl);
 	const decks = await initializeDeckManager(config.octokitToken);
-
+	
 	const templater = new Templater();
 	const guides = await templater.load("guides");
 	logger.info(`Loaded ${guides} templates from "guides".`);
@@ -65,7 +65,7 @@ const logger = getLogger("index");
 
 	bot.on("ready", async () => {
 		logger.notify(`Logged in as ${bot.user?.tag} - ${bot.user?.id}`);
-		bot.user?.setActivity("🕯️ Keeping the lights on", { type: ActivityType.Custom });
+		bot.user?.setActivity("Adding Runick Allure", { type: ActivityType.Custom });
 	});
 	bot.once("ready", async () => await timeWizard.load());
 	bot.login().catch(logger.error);

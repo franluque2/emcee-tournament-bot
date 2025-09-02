@@ -27,6 +27,7 @@ services:
       timeout: 5s
       retries: 5
     <<: *common
+
   adminer:
     image: adminer
     environment:
@@ -39,6 +40,7 @@ services:
     depends_on:
       - postgres
     <<: *common
+
   backup:
     image: "prodrigestivill/postgres-backup-local:${POSTGRES_VERSION}"
     user: postgres
@@ -56,6 +58,7 @@ services:
     depends_on:
       - postgres
     <<: *common
+
   bot:
     build:
       context: .
@@ -71,12 +74,14 @@ services:
       EMCEE_DEFAULT_TO_ROLE: "${EMCEE_DEFAULT_TO_ROLE}"
       EMCEE_LOGGER_WEBHOOK: "${EMCEE_LOGGER_WEBHOOK}"
       POSTGRESQL_URL: "postgresql://${POSTGRES_USER}:${POSTGRES_PASSWORD}@postgres/${POSTGRES_DB}"
+      GITHUB_TOKEN: ${GITHUB_TOKEN}
       DEBUG: "emcee:*"
     volumes:
       - ./dbs:/app/dbs
     depends_on:
       - postgres
     <<: *common
+
   watchtower:
     image: containrrr/watchtower
     environment:
