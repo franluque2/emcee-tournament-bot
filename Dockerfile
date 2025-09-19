@@ -3,13 +3,14 @@ ARG NODE_VERSION=20-bullseye
 FROM node:${NODE_VERSION} AS base
 WORKDIR /app
 COPY package*.json yarn.lock ./
-RUN cat /etc/os-release /etc/debian_version && node --version && yarn --prod
+RUN cat /etc/os-release /etc/debian_version && node --version
 
 FROM base AS dev
-RUN yarn
+COPY . .
+COPY ./newydek ./newydek
+RUN yarn install
 
 FROM dev AS build
-COPY . .
 RUN yarn build
 
 FROM base
@@ -22,6 +23,7 @@ LABEL org.opencontainers.image.revision=${EMCEE_REVISION}
 ENV EMCEE_REVISION=${EMCEE_REVISION}
 WORKDIR /app
 COPY --from=build /app/dist .
+COPY --from=dev /app/node_modules ./node_modules
 COPY --chown=node:node dbs/ ./dbs
 COPY guides/ ./guides
 COPY COPYING .

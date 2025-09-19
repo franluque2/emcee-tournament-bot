@@ -1,5 +1,5 @@
 **Report scores**
-You report your own scores to Emcee in direct messages or a channel with Emcee.
+You report your own scores to Munin in direct messages or a channel with Emcee.
 Both you and opponent need to report.
 If you won 2-0, copy and paste this command:
 ```

@@ -10,6 +10,6 @@
 			]
 		}
 	},
-	"baseDbs": ["cards.cdb", "cards-tf.cdb"],
+	"baseDbs": ["cards.cdb", "cards-tf.cdb","cards-rush.cdb"],
 	"aliasSpecialCases": [27847700, 36996508]
 }

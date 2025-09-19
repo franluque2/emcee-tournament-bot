@@ -1,0 +1,60 @@
+{
+  "name": "ydeck",
+  "version": "0.2.10",
+  "description": "Parse, validate, and classify Yu-Gi-Oh! decklists",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "files": [
+    "dist/**/*.d.ts",
+    "dist/**/*.js",
+    "dist/**/*.js.map",
+    "dist/**/*.json"
+  ],
+  "engines": {
+    "node": ">=16.9",
+    "yarn": "1.22.x"
+  },
+  "dependencies": {
+    "ydke": "^1.1.0"
+  },
+  "devDependencies": {
+    "@alphakretin/essentials": "^4.0.0",
+    "@alphakretin/mocha-ecosystem": "^1.1.0",
+    "dotenv": "^16.0.1",
+    "ygopro-data": "1.4.1"
+  },
+  "scripts": {
+    "test": "nyc mocha --config test/.mocharc.yml",
+    "cover": "nyc report",
+    "lint": "eslint src test",
+    "build": "tsc",
+    "prepare": "rm -rf dist tsconfig.tsbuildinfo && tsc"
+  },
+  "eslintConfig": {
+    "extends": "@alphakretin"
+  },
+  "prettier": "@alphakretin/essentials",
+  "nyc": {
+    "extends": "@alphakretin/mocha-ecosystem"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/DawnbrandBots/ydeck.git"
+  },
+  "keywords": [
+    "yugioh"
+  ],
+  "author": "Luna Brand",
+  "contributors": [
+    "Kevin Lu"
+  ],
+  "funding": {
+    "type": "patreon",
+    "url": "https://www.patreon.com/alphakretinbots"
+  },
+  "license": "GPL-3.0-or-later",
+  "bugs": {
+    "url": "https://github.com/DawnbrandBots/ydeck/issues"
+  },
+  "homepage": "https://github.com/DawnbrandBots/ydeck"
+}
