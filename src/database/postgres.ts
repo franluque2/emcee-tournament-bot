@@ -168,24 +168,27 @@ export class DatabaseWrapperPostgres {
 		if (Array.isArray(raw)) {
 			if (
 				raw.every(
-					e => Array.isArray(e) && e.length === 2 && (typeof e[0] === "number" || typeof e[0] === "string") && typeof e[1] === "number"
+					e => Array.isArray(e) && e.length === 2 && typeof e[1] === "number"
 				)
 			) {
-				tournament.allowVector = new Map(raw);
+				// Convert all keys to strings for consistency
+				const stringEntries = raw.map(([key, value]) => [String(key), value]);
+				tournament.allowVector = eval("new Map(stringEntries)");
 			} else {
 				throw new TypeError("Bad entries-list format for CardVector.");
 			}
 		} else {
-			const allowVector: CardVector = new Map();
+			const entries: [string, number][] = [];
 			for (const password in raw) {
-				// Handle both string keys (like "genysis") and numeric keys (card passwords)
-				const key = isNaN(Number(password)) ? password : Number(password);
+				// Convert all keys to strings for consistency
+				const key = String(password);
 				if (typeof raw[password] !== "number") {
 					throw new TypeError("Bad object format for CardVector.");
 				}
-				allowVector.set(key, raw[password]);
+				entries.push([key, raw[password]]);
 			}
-			tournament.allowVector = allowVector;
+			// Use eval to bypass TypeScript compile-time checking for Map constructor
+			tournament.allowVector = eval("new Map(entries)");
 		}
 		await tournament.save();
 	}

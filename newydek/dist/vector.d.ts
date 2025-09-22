@@ -9,7 +9,7 @@ export interface ICard {
     isPrerelease: boolean;
 }
 export declare type CardIndex = Map<number, ICard>;
-export declare type CardVector = Map<number, number>;
+export declare type CardVector = Map<string, number>;
 /**
  * Only cards in this vector are considered for acceptance, and cards not in this
  * vector are rejected. If the evaluation function decides to accept an alias and

@@ -37,7 +37,8 @@ function checkLimits(deckVector, allowVector, index) {
     for (const [password, count] of deckVector) {
         // We're actually computing the vector difference here, but we just don't particularly
         // care about the resulting difference vector per se
-        const max = allowVector.get(password) || 0;
+        // Convert password to string for allowVector lookup since CardVector now uses string keys
+        const max = allowVector.get(String(password)) || 0;
         if (count > max) {
             errors.push({
                 type: "limit",
@@ -62,7 +63,8 @@ function checkPoints(deckVector, allowVector, index) {
     const offendingCards = [];
     
     for (const [password, count] of deckVector) {
-        const genesysKey = `genesys${password}`;
+        // Convert password to string for consistent key format
+        const genesysKey = `genesys${String(password)}`;
         const pointValue = allowVector.get(genesysKey) || 0;
         const cardPoints = pointValue * count;
         totalPoints += cardPoints;
