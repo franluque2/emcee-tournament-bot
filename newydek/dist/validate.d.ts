@@ -20,7 +20,20 @@ interface LimitError extends BaseError {
     target: number;
     name: string;
 }
-export declare type DeckError = SizeError | LimitError;
+interface PointsError extends BaseError {
+    type: "genesysPoints";
+    actual: number;
+    max: number;
+    offendingCards: Array<{
+        password: number;
+        name: string;
+        pointValue: number;
+        count: number;
+        totalCardPoints: number;
+    }>;
+}
+export declare type DeckError = SizeError | LimitError | PointsError;
 export declare function checkSizes(deck: TypedDeck, options?: Partial<DeckSizes>): SizeError[];
 export declare function checkLimits(deckVector: CardVector, allowVector: CardVector, index: CardIndex): LimitError[];
+export declare function checkPoints(deckVector: CardVector, allowVector: CardVector, index: CardIndex): PointsError[];
 export {};

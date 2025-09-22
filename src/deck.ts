@@ -227,6 +227,12 @@ export class DeckManager {
 				err.min ? `least ${err.min}` : `most ${err.max}`
 			}, is ${err.actual}!`;
 		}
+		if (err.type === "genesysPoints") {
+			const cardList = err.offendingCards
+				.map(card => `${card.name} (${card.pointValue} pts x${card.count} = ${card.totalCardPoints} pts)`)
+				.join(", ");
+			return `Deck exceeds Genesys point limit! Total: ${err.actual}/${err.max} points. Cards with points: ${cardList}`;
+		}
 		// else type is limit
 		return `Too many copies of card ${err.name} (${err.target})! Should be at most ${err.max}, is ${err.actual}!`;
 	}

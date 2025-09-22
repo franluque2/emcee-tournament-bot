@@ -51,4 +51,43 @@ function checkLimits(deckVector, allowVector, index) {
     return errors;
 }
 exports.checkLimits = checkLimits;
+function checkPoints(deckVector, allowVector, index) {
+    const errors = [];
+    const genesysMax = allowVector.get("genesys");
+    if (genesysMax === undefined) {
+        return errors; // No genesys limit set, skip point checking
+    }
+    
+    let totalPoints = 0;
+    const offendingCards = [];
+    
+    for (const [password, count] of deckVector) {
+        const genesysKey = `genesys${password}`;
+        const pointValue = allowVector.get(genesysKey) || 0;
+        const cardPoints = pointValue * count;
+        totalPoints += cardPoints;
+        
+        if (pointValue > 0) {
+            offendingCards.push({
+                password,
+                name: index.get(password)?.name || `${password}`,
+                pointValue,
+                count,
+                totalCardPoints: cardPoints
+            });
+        }
+    }
+    
+    if (totalPoints > genesysMax) {
+        errors.push({
+            type: "genesysPoints",
+            max: genesysMax,
+            actual: totalPoints,
+            offendingCards: offendingCards
+        });
+    }
+    
+    return errors;
+}
+exports.checkPoints = checkPoints;
 //# sourceMappingURL=validate.js.map

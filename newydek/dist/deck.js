@@ -58,7 +58,7 @@ class Deck {
      */
     validate(allowVector, options) {
         const deckVector = (0, vector_1.deckToVector)(this.contents, this.index, allowVector);
-        return [...(0, validate_1.checkSizes)(this.contents, options), ...(0, validate_1.checkLimits)(deckVector, allowVector, this.index)];
+        return [...(0, validate_1.checkSizes)(this.contents, options), ...(0, validate_1.checkLimits)(deckVector, allowVector, this.index), ...(0, validate_1.checkPoints)(deckVector, allowVector, this.index)];
     }
 }
 exports.Deck = Deck;
