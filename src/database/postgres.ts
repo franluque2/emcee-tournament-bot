@@ -168,7 +168,7 @@ export class DatabaseWrapperPostgres {
 		if (Array.isArray(raw)) {
 			if (
 				raw.every(
-					e => Array.isArray(e) && e.length === 2 && typeof e[0] === "number" && typeof e[1] === "number"
+					e => Array.isArray(e) && e.length === 2 && (typeof e[0] === "number" || typeof e[0] === "string") && typeof e[1] === "number"
 				)
 			) {
 				tournament.allowVector = new Map(raw);
@@ -178,11 +178,12 @@ export class DatabaseWrapperPostgres {
 		} else {
 			const allowVector: CardVector = new Map();
 			for (const password in raw) {
-				const key = Number(password);
-				if (isNaN(key) || typeof raw[password] !== "number") {
+				// Handle both string keys (like "genysis") and numeric keys (card passwords)
+				const key = isNaN(Number(password)) ? password : Number(password);
+				if (typeof raw[password] !== "number") {
 					throw new TypeError("Bad object format for CardVector.");
 				}
-				allowVector.set(Number(password), raw[password]);
+				allowVector.set(key, raw[password]);
 			}
 			tournament.allowVector = allowVector;
 		}
