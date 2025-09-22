@@ -40,10 +40,12 @@ function checkLimits(deckVector, allowVector, index) {
         // Convert password to string for allowVector lookup since CardVector now uses string keys
         const max = allowVector.get(String(password)) || 0;
         if (count > max) {
+            // Convert password back to number for CardIndex lookup (CardIndex uses numeric keys)
+            const passwordNum = Number(password);
             errors.push({
                 type: "limit",
                 target: password,
-                name: index.get(password)?.name || `${password}`,
+                name: index.get(passwordNum)?.name || `${password}`,
                 max,
                 actual: count
             });
@@ -70,9 +72,11 @@ function checkPoints(deckVector, allowVector, index) {
         totalPoints += cardPoints;
         
         if (pointValue > 0) {
+            // Convert password back to number for CardIndex lookup (CardIndex uses numeric keys)
+            const passwordNum = Number(password);
             offendingCards.push({
                 password,
-                name: index.get(password)?.name || `${password}`,
+                name: index.get(passwordNum)?.name || `${password}`,
                 pointValue,
                 count,
                 totalCardPoints: cardPoints
