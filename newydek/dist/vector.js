@@ -15,7 +15,8 @@ function createAllowVector(cards, evaluate) {
     for (const [password, card] of cards) {
         const limit = evaluate(card);
         if (limit != 0) {
-            vector.set(password, limit);
+            // Convert password to string for consistent CardVector key type
+            vector.set(String(password), limit);
         }
     }
     return vector;
@@ -31,11 +32,13 @@ function deckToVector(deck, cards, allowVector) {
     const vector = new Map();
     const deckReducer = (password) => {
         const index = (() => {
-            if (!allowVector || (allowVector.get(password) || 0) < 0) {
-                return cards.get(password)?.alias || password;
+            // Convert passwords to strings for consistent lookups
+            const passwordStr = String(password);
+            if (!allowVector || (allowVector.get(passwordStr) || 0) < 0) {
+                return String(cards.get(password)?.alias || password);
             }
             else {
-                return password;
+                return passwordStr;
             }
         })();
         vector.set(index, 1 + (vector.get(index) || 0));
