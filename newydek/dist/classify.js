@@ -36,10 +36,12 @@ function setCodeClassifier(setCode, mainThreshold, extraThreshold) {
         else {
             main = [...deck.main];
         }
-        const mainCards = main.map(c => data.get(c));
+        // Convert passwords to numbers for CardIndex lookup since CardIndex uses numeric keys
+        const mainCards = main.map(c => data.get(Number(c)));
         let out = mainCards.filter(c => hasSetcode(c, setCode)).length >= mainThreshold;
         if (extraThreshold !== undefined) {
-            const extraCards = [...deck.extra].map(c => data.get(c));
+            // Convert passwords to numbers for CardIndex lookup since CardIndex uses numeric keys
+            const extraCards = [...deck.extra].map(c => data.get(Number(c)));
             out = out && extraCards.filter(c => c && hasSetcode(c, setCode)).length >= extraThreshold;
         }
         return out;
@@ -51,7 +53,8 @@ function cardCodeClassifier(requirements) {
         // We're actually computing the vector difference here, but we only care about
         // whether the requirements multiset is a subset of the deck multiset
         for (const password in requirements) {
-            if (requirements[password] > (deckVector.get(Number(password)) || 0)) {
+            // Convert password to string for deckVector lookup since deckVector now uses string keys
+            if (requirements[password] > (deckVector.get(String(password)) || 0)) {
                 return false;
             }
         }
