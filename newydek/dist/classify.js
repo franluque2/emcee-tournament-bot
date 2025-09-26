@@ -360,6 +360,24 @@ const doodlebeast = cardCodeClassifier({
 const odion = cardCodeClassifier({
     97522863: 1 // The Man with the Mark  
 });
+const truedraco = cardCodeClassifier({
+    21377582: 1 // Master Peace, the True Dracoslaying King  
+});
+const doomz = cardCodeClassifier({
+    81650695: 1 // Power Patron DoomZ 
+});
+const mst = cardCodeClassifier({
+    80538047: 1 // Radiant Typhoon Swen
+});
+const solfa = cardCodeClassifier({
+    93481594: 1 // Solfachord Happiness
+});
+const rb = cardCodeClassifier({
+    80071619: 1 // R.B. Shepherd's Crook
+});
+const melodious = cardCodeClassifier({
+    64881644: 1 // Refrain the Melodious Songstress
+});
 const classifiers = {
     "Mekk-Knight": mekkKnight,
     "Mystic Mine": mysticMine,
@@ -466,7 +484,14 @@ const classifiers = {
     "Gimmick Puppet": gimmickpuppet,
     "Doodle Beast": doodlebeast,
     Argostars: argostars,
-    "Assorted retrains of monsters used by Odion in the Duel Monsters Anime based around Temple of the Kings": odion
+    "Assorted retrains of monsters used by Odion in the Duel Monsters anime based around Temple of the Kings": odion,
+    "True Draco": truedraco,
+    Solfachord: solfa,
+    Doomz: doomz,
+    "Radiant Typhoon": mst,
+    "R.B.": rb,
+    Melodious: melodious
+    
 
 
 
