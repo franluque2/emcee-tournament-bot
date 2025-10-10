@@ -60,6 +60,7 @@ async function convertCard(card: Card): Promise<ICard> {
 export async function initializeDeckManager(octokitToken: string): Promise<DeckManager> {
 	logger.info("ygo-data preload for ydeck starting");
 	const data = new YgoData(cardOpts, transOpts, dataOpts, "./dbs", octokitToken);
+	await data.update();
 	const cardList = await data.getCardList();
 	const cardIndex: ConstructorParameters<typeof DeckManager>[0] = new Map();
 	for (const password in cardList) {
